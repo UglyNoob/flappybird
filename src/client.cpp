@@ -148,7 +148,7 @@ void Client::main_loop() {
 		#undef free_asset
 	};
 	uint_type surface_index = 0;
-	auto time = SDL_GetTicks64();
+	auto time = SDL_GetTicks();
 	SDL_Color color = next_color();
 
 	while(true) {
@@ -156,7 +156,7 @@ void Client::main_loop() {
 		if(requests.request_exit) break;
 		if(requests.window_area_changed) window_area = requests.changed_window_area;
 
-		auto time2 = SDL_GetTicks64();
+		auto time2 = SDL_GetTicks();
 		if(time2 - time > 1000) {
 			time = time2;
 			++surface_index;

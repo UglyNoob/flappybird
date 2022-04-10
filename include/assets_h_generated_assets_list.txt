@@ -1,0 +1,78 @@
+
+private: static SDL_Surface *base_surface_; SDL_Texture *base_texture_;
+public: static SDL_Surface *base_surface() { assert(surface_initialized); return base_surface_; } SDL_Texture *base_texture() const { assert(initialized); return base_texture_; }
+
+private: static SDL_Surface *background_day_surface_; SDL_Texture *background_day_texture_;
+public: static SDL_Surface *background_day_surface() { assert(surface_initialized); return background_day_surface_; } SDL_Texture *background_day_texture() const { assert(initialized); return background_day_texture_; }
+
+private: static SDL_Surface *background_night_surface_; SDL_Texture *background_night_texture_;
+public: static SDL_Surface *background_night_surface() { assert(surface_initialized); return background_night_surface_; } SDL_Texture *background_night_texture() const { assert(initialized); return background_night_texture_; }
+
+private: static SDL_Surface *digit_0_surface_; SDL_Texture *digit_0_texture_;
+public: static SDL_Surface *digit_0_surface() { assert(surface_initialized); return digit_0_surface_; } SDL_Texture *digit_0_texture() const { assert(initialized); return digit_0_texture_; }
+
+private: static SDL_Surface *digit_1_surface_; SDL_Texture *digit_1_texture_;
+public: static SDL_Surface *digit_1_surface() { assert(surface_initialized); return digit_1_surface_; } SDL_Texture *digit_1_texture() const { assert(initialized); return digit_1_texture_; }
+
+private: static SDL_Surface *digit_2_surface_; SDL_Texture *digit_2_texture_;
+public: static SDL_Surface *digit_2_surface() { assert(surface_initialized); return digit_2_surface_; } SDL_Texture *digit_2_texture() const { assert(initialized); return digit_2_texture_; }
+
+private: static SDL_Surface *digit_3_surface_; SDL_Texture *digit_3_texture_;
+public: static SDL_Surface *digit_3_surface() { assert(surface_initialized); return digit_3_surface_; } SDL_Texture *digit_3_texture() const { assert(initialized); return digit_3_texture_; }
+
+private: static SDL_Surface *digit_4_surface_; SDL_Texture *digit_4_texture_;
+public: static SDL_Surface *digit_4_surface() { assert(surface_initialized); return digit_4_surface_; } SDL_Texture *digit_4_texture() const { assert(initialized); return digit_4_texture_; }
+
+private: static SDL_Surface *digit_5_surface_; SDL_Texture *digit_5_texture_;
+public: static SDL_Surface *digit_5_surface() { assert(surface_initialized); return digit_5_surface_; } SDL_Texture *digit_5_texture() const { assert(initialized); return digit_5_texture_; }
+
+private: static SDL_Surface *digit_6_surface_; SDL_Texture *digit_6_texture_;
+public: static SDL_Surface *digit_6_surface() { assert(surface_initialized); return digit_6_surface_; } SDL_Texture *digit_6_texture() const { assert(initialized); return digit_6_texture_; }
+
+private: static SDL_Surface *digit_7_surface_; SDL_Texture *digit_7_texture_;
+public: static SDL_Surface *digit_7_surface() { assert(surface_initialized); return digit_7_surface_; } SDL_Texture *digit_7_texture() const { assert(initialized); return digit_7_texture_; }
+
+private: static SDL_Surface *digit_8_surface_; SDL_Texture *digit_8_texture_;
+public: static SDL_Surface *digit_8_surface() { assert(surface_initialized); return digit_8_surface_; } SDL_Texture *digit_8_texture() const { assert(initialized); return digit_8_texture_; }
+
+private: static SDL_Surface *digit_9_surface_; SDL_Texture *digit_9_texture_;
+public: static SDL_Surface *digit_9_surface() { assert(surface_initialized); return digit_9_surface_; } SDL_Texture *digit_9_texture() const { assert(initialized); return digit_9_texture_; }
+
+private: static SDL_Surface *bluebird_downflap_surface_; SDL_Texture *bluebird_downflap_texture_;
+public: static SDL_Surface *bluebird_downflap_surface() { assert(surface_initialized); return bluebird_downflap_surface_; } SDL_Texture *bluebird_downflap_texture() const { assert(initialized); return bluebird_downflap_texture_; }
+
+private: static SDL_Surface *bluebird_midflap_surface_; SDL_Texture *bluebird_midflap_texture_;
+public: static SDL_Surface *bluebird_midflap_surface() { assert(surface_initialized); return bluebird_midflap_surface_; } SDL_Texture *bluebird_midflap_texture() const { assert(initialized); return bluebird_midflap_texture_; }
+
+private: static SDL_Surface *bluebird_upflap_surface_; SDL_Texture *bluebird_upflap_texture_;
+public: static SDL_Surface *bluebird_upflap_surface() { assert(surface_initialized); return bluebird_upflap_surface_; } SDL_Texture *bluebird_upflap_texture() const { assert(initialized); return bluebird_upflap_texture_; }
+
+private: static SDL_Surface *redbird_downflap_surface_; SDL_Texture *redbird_downflap_texture_;
+public: static SDL_Surface *redbird_downflap_surface() { assert(surface_initialized); return redbird_downflap_surface_; } SDL_Texture *redbird_downflap_texture() const { assert(initialized); return redbird_downflap_texture_; }
+
+private: static SDL_Surface *redbird_midflap_surface_; SDL_Texture *redbird_midflap_texture_;
+public: static SDL_Surface *redbird_midflap_surface() { assert(surface_initialized); return redbird_midflap_surface_; } SDL_Texture *redbird_midflap_texture() const { assert(initialized); return redbird_midflap_texture_; }
+
+private: static SDL_Surface *redbird_upflap_surface_; SDL_Texture *redbird_upflap_texture_;
+public: static SDL_Surface *redbird_upflap_surface() { assert(surface_initialized); return redbird_upflap_surface_; } SDL_Texture *redbird_upflap_texture() const { assert(initialized); return redbird_upflap_texture_; }
+
+private: static SDL_Surface *yellowbird_downflap_surface_; SDL_Texture *yellowbird_downflap_texture_;
+public: static SDL_Surface *yellowbird_downflap_surface() { assert(surface_initialized); return yellowbird_downflap_surface_; } SDL_Texture *yellowbird_downflap_texture() const { assert(initialized); return yellowbird_downflap_texture_; }
+
+private: static SDL_Surface *yellowbird_midflap_surface_; SDL_Texture *yellowbird_midflap_texture_;
+public: static SDL_Surface *yellowbird_midflap_surface() { assert(surface_initialized); return yellowbird_midflap_surface_; } SDL_Texture *yellowbird_midflap_texture() const { assert(initialized); return yellowbird_midflap_texture_; }
+
+private: static SDL_Surface *yellowbird_upflap_surface_; SDL_Texture *yellowbird_upflap_texture_;
+public: static SDL_Surface *yellowbird_upflap_surface() { assert(surface_initialized); return yellowbird_upflap_surface_; } SDL_Texture *yellowbird_upflap_texture() const { assert(initialized); return yellowbird_upflap_texture_; }
+
+private: static SDL_Surface *pipe_green_surface_; SDL_Texture *pipe_green_texture_;
+public: static SDL_Surface *pipe_green_surface() { assert(surface_initialized); return pipe_green_surface_; } SDL_Texture *pipe_green_texture() const { assert(initialized); return pipe_green_texture_; }
+
+private: static SDL_Surface *pipe_red_surface_; SDL_Texture *pipe_red_texture_;
+public: static SDL_Surface *pipe_red_surface() { assert(surface_initialized); return pipe_red_surface_; } SDL_Texture *pipe_red_texture() const { assert(initialized); return pipe_red_texture_; }
+
+private: static SDL_Surface *getready_surface_; SDL_Texture *getready_texture_;
+public: static SDL_Surface *getready_surface() { assert(surface_initialized); return getready_surface_; } SDL_Texture *getready_texture() const { assert(initialized); return getready_texture_; }
+
+private: static SDL_Surface *gameover_surface_; SDL_Texture *gameover_texture_;
+public: static SDL_Surface *gameover_surface() { assert(surface_initialized); return gameover_surface_; } SDL_Texture *gameover_texture() const { assert(initialized); return gameover_texture_; }

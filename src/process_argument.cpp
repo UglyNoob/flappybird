@@ -1,10 +1,10 @@
 #include "commandline_argument.h"
 
-#include <argument_utils.h>
+#include "argument_utils.h"
 #include <cstdlib>
 
 
-int process_argument(int argc, char **argv, ArgumentSpecifying &output) {
+int process_argument(int argc, char **argv, ArgumentRequests &output) {
 	output.disable_mainmenu = false;
 
 	ArgumentProcessor ap;

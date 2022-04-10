@@ -1,12 +1,8 @@
 #ifndef __FLA_GAME_H__
 #define __FLA_GAME_H__
 
-#include "basic_types.h"
+#include "basic.h"
 #include <cstdint>
-
-enum class GameState : uint8_t {
-	MAINMENU, GAMING, PAUSEMENU, OVERMENU
-};
 
 struct GameSetting {
 	uint_type map_height;
@@ -19,7 +15,7 @@ struct GameSetting {
 	uint_type maximum_block_horizental_interval;
 	uint_type minimum_block_vertical_interval;
 	uint_type maximum_block_vertical_interval;
-	Size bird_size;
+	Area bird_area;
 
 	bool check() {
 		return minimum_block_horizental_interval < maximum_block_horizental_interval &&
@@ -30,7 +26,6 @@ struct GameSetting {
 };
 
 struct GameData {
-	GameState state;
 	int_type bird_y;
 	int_type bird_velocity; // up positive
 };

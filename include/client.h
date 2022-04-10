@@ -1,30 +1,56 @@
 #ifndef __FLAPPYBIRD_CLIENT_H__
 #define __FLAPPYBIRD_CLIENT_H__
 
-#include <exception>
-#include <string>
+#include <SDL2/SDL.h>
 
-class Client;
+#include "assets.h"
+#include "basic.h"
 
-class initialization_error : std::exception {
-	friend class Client;
+constexpr UArea CLIENT_DEFAULT_WINDOW_AREA = { 640, 480 };
 
-	virtual const char *what() const noexcept override {
-		return data.c_str();
-	}
+struct ClientSetting {
+	UArea window_area = CLIENT_DEFAULT_WINDOW_AREA;
 
-private:
-	initialization_error(std::string str) : data(std::move(str)) {}
-
-	const std::string data;
+	bool disable_mainmenu = false;
 };
+
+enum class ClientState : uint8_t {
+	MAINMENU, GAMING, PAUSEMENU, OVERMENU
+};
+
 
 class Client {
 public:
-	Client();
+	Client() : initialized(false), window(nullptr), renderer(nullptr) {}
 
-	static void initialize();
+	Client(const Client &) = delete;
+
+	Client(Client &&);
+
+	~Client() {if(initialized) { quit(); } }
+
+	Client &operator=(const Client &) = delete;
+
+	bool initialize(ClientSetting);
+
+	/*
+	 * Blocks.
+	 * Returns when the window exits.
+	 */
+	void main_loop();
+
+	/*
+	 * Release resources.
+	 */
+	void quit();
 private:
+	bool initialized;
+	ClientState state;
+	UArea window_area;
+
+	SDL_Window *window;
+	SDL_Renderer *renderer;
+	Assets assets;
 };
 
 #endif

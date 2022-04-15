@@ -4,12 +4,16 @@
 #include "basic.h"
 #include <cstdint>
 
+/*
+ * Static values of a game.
+ * Unit of velocity: pixels per tick(50 milliseconds)
+ */
 struct GameSetting {
 	uint_type map_height;
 	uint_type jump_velocity;
 	uint_type gravity; // down positive
 	uint_type maximum_velocity; // both up and down
-	uint_type horizontal_speed; // right positive
+	uint_type horizontal_velocity; // right positive
 	uint_type block_width;
 	uint_type minimum_block_horizental_interval;
 	uint_type maximum_block_horizental_interval;
@@ -20,7 +24,7 @@ struct GameSetting {
 	bool check() {
 		return minimum_block_horizental_interval < maximum_block_horizental_interval &&
 			minimum_block_vertical_interval < maximum_block_vertical_interval &&
-			horizontal_speed < block_width &&
+			horizontal_velocity < block_width &&
 			jump_velocity < maximum_velocity;
 	}
 };

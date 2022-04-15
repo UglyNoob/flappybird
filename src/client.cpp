@@ -1,8 +1,10 @@
 #include "client.h"
 #include "basic.h"
 
+#include <SDL2/SDL_render.h>
 #include <assert.h>
 #include <SDL2/SDL.h>
+#include <cstdio>
 #include <iterator>
 
 bool SDL2_initialized = false;
@@ -71,44 +73,6 @@ struct EventRequests {
 	bool window_area_changed = false;
 	UArea changed_window_area;
 };
-SDL_Color next_color() {
-	return {255, 0, 0, 255};
-}
-
-SDL_Color next_color(SDL_Color prv) {
-	if(prv.r == 255) {
-		if(prv.b == 0) {
-			if(prv.g == 255) {
-				--prv.r;
-			} else {
-				++prv.g;
-			}
-		} else {
-			--prv.b;
-		}
-	} else if(prv.g == 255) {
-		if(prv.r == 0) {
-			if(prv.b == 255) {
-				--prv.g;
-			} else {
-				++prv.b;
-			}
-		} else {
-			--prv.r;
-		}
-	} else { // prv.b == 255
-		if(prv.r == 0) {
-			if(prv.g == 0) {
-				++prv.r;
-			} else {
-				--prv.g;
-			}
-		} else {
-			++prv.r;
-		}
-	}
-	return prv;
-}
 
 void Client::main_loop() {
 	log_normal("main loop");
@@ -124,7 +88,7 @@ void Client::main_loop() {
 					result.request_exit = true;
 					break;
 				case SDL_WINDOWEVENT:
-					switch(event.window.type) {
+					switch(event.window.event) {
 						case SDL_WINDOWEVENT_SIZE_CHANGED:
 							result.window_area_changed = true;
 							result.changed_window_area.w = event.window.data1;
@@ -137,41 +101,62 @@ void Client::main_loop() {
 		return result;
 	};
 
-	SDL_Surface *surfaces[] = {
-		#define free_asset(asset_name) Assets::asset_name##_surface(),
-		#include "assets_cpp_generated_free_assets_list.txt"
-		#undef free_asset
-	};
-	SDL_Texture *textures[] = {
-		#define free_asset(asset_name) assets.asset_name##_texture(),
-		#include "assets_cpp_generated_free_assets_list.txt"
-		#undef free_asset
-	};
-	uint_type surface_index = 0;
-	auto time = SDL_GetTicks();
-	SDL_Color color = next_color();
+	struct RenderBase_T {
+	public:
+		RenderBase_T(Client *c) : client(*c) {}
+
+		void operator()(bool enable_base_animation = true) {
+			constexpr static uint_type PIXELS_PER_SECOND = 60;
+			const static UArea base_surface_area = {
+				static_cast<uint_type>(Assets::base_surface()->w),
+				static_cast<uint_type>(Assets::base_surface()->h),
+			};
+			if(enable_base_animation) {
+				timer = SDL_GetTicks64();
+			}
+			uint_type start_x = timer * PIXELS_PER_SECOND / 1000 % base_surface_area.w;
+
+			/* the variable x is on the window, while start_x is on the base surface. */
+			for(uint_type x = 0; x < client.window_area.w; x += base_surface_area.w) {
+				URect srcrect { {start_x, 0}, {base_surface_area.w - start_x, base_surface_area.h} };
+				URect dstrect { {x, client.window_area.h - base_surface_area.h}, srcrect.area};
+				SDL_RenderCopy(client.renderer, client.assets.base_texture(), srcrect, dstrect);
+
+				srcrect = { {0, 0}, {start_x, base_surface_area.h}};
+				dstrect.coord.x = x + base_surface_area.w - start_x;
+				dstrect.area = srcrect.area;
+				SDL_RenderCopy(client.renderer, client.assets.base_texture(), srcrect, dstrect);
+			}
+		}
+	private:
+		decltype(SDL_GetTicks64()) timer = 0;
+		Client &client;
+	} render_base(this);
 
 	while(true) {
 		EventRequests requests = handle_events();
 		if(requests.request_exit) break;
-		if(requests.window_area_changed) window_area = requests.changed_window_area;
+		if(requests.window_area_changed)
+			window_area = requests.changed_window_area;
 
-		auto time2 = SDL_GetTicks();
-		if(time2 - time > 1000) {
-			time = time2;
-			++surface_index;
-			if(surface_index == std::size(surfaces)) surface_index = 0;
+
+		SDL_SetRenderDrawColor(renderer, 0xaa, 0xaa, 0xff, 0xff);
+		SDL_RenderFillRect(renderer, nullptr);
+		switch (state) {
+			case ClientState::MAINMENU:
+				render_base();
+				break;
+			case ClientState::GAMING:
+				render_base();
+				break;
+			case ClientState::PAUSEMENU:
+				render_base(false); // static base
+				break;
+			case ClientState::OVERMENU:
+				render_base(false); // static base
+				break;
 		}
 
-		SDL_Surface *surface = surfaces[surface_index];
-		SDL_Texture *texture = textures[surface_index];
-		SDL_Rect rect{0, 0, surface->w, surface->h};
-
-		SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-		SDL_RenderFillRect(renderer, nullptr);
-		SDL_RenderCopy(renderer, texture, &rect, &rect);
 		SDL_RenderPresent(renderer);
-
-		color = next_color(color);
 	}
 }

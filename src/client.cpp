@@ -1,10 +1,8 @@
 #include "client.h"
 #include "basic.h"
 
-#include <SDL2/SDL_render.h>
 #include <assert.h>
 #include <SDL2/SDL.h>
-#include <cstdio>
 #include <iterator>
 
 bool SDL2_initialized = false;
@@ -122,7 +120,7 @@ void Client::main_loop() {
 				URect dstrect { {x, client.window_area.h - base_surface_area.h}, srcrect.area};
 				SDL_RenderCopy(client.renderer, client.assets.base_texture(), srcrect, dstrect);
 
-				srcrect = { {0, 0}, {start_x, base_surface_area.h}};
+				srcrect = { {0, 0}, {start_x, base_surface_area.h} };
 				dstrect.coord.x = x + base_surface_area.w - start_x;
 				dstrect.area = srcrect.area;
 				SDL_RenderCopy(client.renderer, client.assets.base_texture(), srcrect, dstrect);
